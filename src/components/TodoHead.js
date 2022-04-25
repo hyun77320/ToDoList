@@ -57,8 +57,9 @@ function TodoHead() {
 
     return (
         <TodoHeadBlock>
-            <h1>{year + "년" +  month + "월" + date  + "일"}</h1>
+            <h1>{year + "년 " +  month + "월 " + date  + "일"}</h1>
             <div className='day'>{state.day}요일</div>
+            <div className='tasks-left'>할 일 2개 남음</div>
         </TodoHeadBlock>
     );
 }
