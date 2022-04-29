@@ -75,7 +75,7 @@ function TodoItem({ id, done, text }) {
             type: 'REMOVE',
             id
         });
-    };
+    }; 
     
     return (
         <TodoItemBlock>

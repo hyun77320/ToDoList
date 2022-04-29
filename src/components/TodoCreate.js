@@ -105,7 +105,7 @@ function TodoCreate() {
             {open && (
                 <InsertFormPositioner>
                     <InsertForm onSubmit={onSubmit}>
-                        <Input 
+                        <Input
                             autoFocus
                             onChange={onChange}
                             value={value}

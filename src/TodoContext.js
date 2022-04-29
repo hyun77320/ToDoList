@@ -1,27 +1,45 @@
-import React, { createContext, useReducer, useContext, useRef } from "react";
+import React, { createContext, useReducer, useContext, useRef, useEffect } from "react";
 
 const TodoStateContext = createContext(null);
 const TodoDispatchContext = createContext(null);
 const TodoNextIdContext = createContext(null);
 
+
+const saveData = (data) => {
+    const userObj = { list: data }
+    window.localStorage.setItem('list', JSON.stringify(userObj))
+}
+
 function todoReducer(state, action) {
+    let a;
     switch (action.type) {
         case 'CREATE':
-            return state.concat(action.todo);
+            a = state.concat(action.todo);
+            break;
         case 'TOGGLE':
-            return state.map(todo =>
+            a = state.map(todo =>
                 todo.id === action.id ? { ...todo, done: !todo.done } : todo
             );
+            break;
         case 'REMOVE':
-            return state.filter(todo => todo.id !== action.id);
+            a = state.filter(todo => todo.id !== action.id);
+            break;
         default:
-            return state;
+            a = state;
+            break;
     }
+    
+    saveData(a);
+    return a;
 }
 
 export function TodoProvider({ children }) {
     const [state, dispatch] = useReducer(todoReducer, []);
     const nextId = useRef(1);
+
+    useEffect(() => {
+        console.log(window.localStorage.getItem('list')); 
+    }, [state]);
 
     return (
         <TodoStateContext.Provider value={state}>
